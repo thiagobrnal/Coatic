@@ -1,0 +1,27 @@
+<div class="container my-auto p-3" th:fragment="contenido">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header h3" th:text="${curso.nombre}"></div>
+                <div class="card-body">
+                    <p>
+                        <span class="fw-bold">Fecha de nacimiento:</span>
+                        <span th:text="${#dates.format(curso.inicio, 'd MMMMM yyyy')}"></span>
+                    </p>
+                    <p>
+                        <span class="fw-bold">Lugar de Nacimiento:</span>
+                        <span th:text="${curso.lugarDeNacimiento.paisNombre}"></span>
+                    </p>
+                    <div class="mb-3" th:if="${curso.foto != null}">
+                        <img th:src="${'/images/cursos/' + curso.foto}" th:alt="${'Foto de ' + curso.nombre}" height="200px">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="/cursos" class="btn btn-secondary mx-2">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:fragment="script"></script>

@@ -1,0 +1,60 @@
+<div class="container my-auto p-3" th:fragment="contenido">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Crear curso
+          </div>
+          <form class="card-body" th:action="@{/cursos/crear}" th:object="${curso}" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" th:field="*{nombre}" th:errorClass="'is-invalid'">
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="inicio" class="form-label">Fecha de inicio</label>
+              <input type="date" class="form-control" id="inicio" th:field="*{inicio}" th:errorClass="'is-invalid'">
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('inicio')}" th:errors="*{inicio}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="meses" class="form-label">Duración en meses</label>
+              <input type="number" class="form-control" id="meses" th:field="*{meses}" th:errorClass="'is-invalid'" min="1" max="12" value="1">
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('meses')}" th:errors="*{meses}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="area" class="form-label">Área</label>
+              <select id="area" th:field="*{area}" class="select2 form-select" th:errorClass="'is-invalid'">
+                <option selected value=""></option>
+                <option th:each="a : ${areas}" th:value="${a.id}" th:text="${a.nombre}"></option>
+              </select>
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></div>
+            </div>
+  
+            <div class="my-4 text-center form-check">
+              <input type="checkbox" class="form-check-input" id="presencial" th:field="*{presencial}">
+              <label class="form-check-label" for="presencial">Es presencial</label>
+            </div>          
+          
+            <div class="mb-3">
+              <label for="archivo" class="form-label">Foto del curso</label>
+              <input class="form-control" type="file" id="archivo" name="archivo" accept="image/*" required>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary mx-2">Guardar</button>
+              <a href="/cursos" class="btn btn-secondary mx-2">Volver</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script th:fragment="script">
+    $(document).ready(function() {
+      $('.select2').select2({
+        placeholder: 'Seleccione una opción',
+        allowClear: true,
+        width: '100%',
+      });
+    });
+  </script>

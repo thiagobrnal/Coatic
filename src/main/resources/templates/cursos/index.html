@@ -1,0 +1,66 @@
+<div class="container p-3" th:fragment="contenido">
+    <div class="card p-4">
+        <div class="row">
+            <div th:if="${exito}" class="alert alert-success alert-dismissible fade show">
+                <span th:text="${exito}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col h2">Listado de cursos</div>
+            <a href="/cursos/crear" class="col-auto btn btn-lg btn-success">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </div>
+
+        <table id="cursos" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Duración en meses</th>
+                    <th>Fecha de inicio</th>
+                    <th>Área</th>
+                    <th style="text-align: center;">Imagen</th>
+                    <th>¿Es presencial?</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${cursos}">
+                    <td th:text="${c.nombre}"></td>
+                    <td th:text="${c.meses}"></td>
+                    <td th:text="${#dates.format(c.inicio, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${c.area.nombre}"></td>
+                    <td style="text-align: center;"><img th:src="${'/images/cursos/' + c.imagen}" th:alt="${'Foto del curso ' + c.nombre}" height="150px"></td>
+                    <td th:text="${c.presencial} ? 'SÍ' : 'NO'"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/cursos/{id}' (id=${c.id})}">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+
+                        <a class="btn btn-secondary" th:href="@{'/cursos/editar/{id}' (id=${c.id})}">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+
+                        <form class="d-inline" th:action="@{'/cursos/{id}' (id=${c.id})}" th:method="DELETE">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro de eliminar?')">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script th:fragment="script">
+    $(document).ready(function() {
+        $('#cursos').DataTable();
+    } );
+</script>

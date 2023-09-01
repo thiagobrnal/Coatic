@@ -1,0 +1,14 @@
+<div class="container pt-3 my-auto" th:fragment="contenido">
+  <div class="card-columns">
+    
+    <div class="card d-inline-block" th:each="c : ${cursos}">
+      <img th:src="|/images/cursos/${c.imagen}|" class="card-img-top" th:alt="${c.nombre}">
+      <div class="card-body">
+        <h5 class="card-title" th:text="${c.nombre}"></h5>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script th:fragment="script"></script>
